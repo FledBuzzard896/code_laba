@@ -1,7 +1,9 @@
+import sys
+sys.path.append("/path/to/pydantic")
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-import models
 from routers import tasks
 
 app = FastAPI(title="TaskFlow API", version="1.0")

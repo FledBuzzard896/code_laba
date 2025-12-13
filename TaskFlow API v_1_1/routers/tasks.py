@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Получаем путь к корню проекта (на уровень выше routers)
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from fastapi import APIRouter, HTTPException
 import models
 
