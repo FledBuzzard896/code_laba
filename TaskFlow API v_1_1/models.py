@@ -20,3 +20,19 @@ class CreateTask(BaseModel): # что принимаем от пользоват
 class ResponseTask(CreateTask): # что возвращаем пользователю
     id: int
     status: TaskStatus = TaskStatus.TODO
+
+'''Клас, содержащий информацию о пользователе'''
+class User:
+    id: int
+    login: str
+    password: str
+    name: str
+    gender: bool
+    email: str
+
+'''Клас содержащий информацию о проекте'''
+class Project:
+    id: int
+    title: str
+    description: Optional[str] = None
+    party: list[User]
