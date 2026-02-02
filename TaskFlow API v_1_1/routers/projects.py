@@ -2,12 +2,14 @@ from fastapi import APIRouter, HTTPException
 import models
 import users
 
+
 router = APIRouter(
     tags=["projects"],
     responses={
         404: {"description": "Ниче не нашел, бро"},
     }
 )
+
 
 test_project = models.Project(
     id=1,
@@ -19,6 +21,8 @@ test_project = models.Project(
 projects_db: list[models.Project] = [test_project]
 next_id = 2
 
+
+
 @router.get("/projects/{id}", response_model=models.Project)
 def read_prioject(id: int):
     """Вывод проекта по индексу"""
@@ -26,6 +30,7 @@ def read_prioject(id: int):
         if project.id == id:
             return project
     raise HTTPException(status_code=404, detail="Такого проекта не существуют")
+
 
 @router.post("/projects/", response_model=models.Project)
 def create_project(project: models.Project):
@@ -42,6 +47,7 @@ def create_project(project: models.Project):
     projects_db.append(new_project)
     next_id += 1
     return new_project
+
 
 @router.delete("/projects/{id}", response_model=models.Project)
 def delete_project(id: int):

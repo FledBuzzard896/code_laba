@@ -2,8 +2,8 @@ from typing import Optional
 from enum import Enum
 from pydantic import BaseModel
 
-'''Pydantic'''
 
+'''Pydantic'''
 # класс для статусов заданий
 class TaskStatus(str, Enum):
     TODO = "запланировано"
@@ -11,15 +11,18 @@ class TaskStatus(str, Enum):
     DONE = "выполнено"
     CANCELLED = "прервано"
 
+
 '''Это то, что вводит пользователь (Наименование задачи и описание)'''
 class CreateTask(BaseModel): # что принимаем от пользователя
     title: str
     description: Optional[str] = None # строка или ничего (необязательно)
 
+
 '''Это то что мы добавляем автоматически (Id задачи и её статус)'''
 class ResponseTask(CreateTask): # что возвращаем пользователю
     id: int
     status: TaskStatus = TaskStatus.TODO
+
 
 '''Клас, содержащий информацию о пользователе'''
 class User:
@@ -29,6 +32,7 @@ class User:
     name: str
     gender: bool
     email: str
+
 
 '''Клас содержащий информацию о проекте'''
 class Project:

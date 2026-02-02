@@ -1,10 +1,7 @@
-import sys
-sys.path.append("/path/to/pydantic")
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from routers import tasks
+import tasks
 
 app = FastAPI(title="TaskFlow API", version="1.0")
 app.include_router(tasks.router) # подключаем роутер задач
@@ -13,6 +10,10 @@ app.include_router(tasks.router) # подключаем роутер задач
 @app.get("/")
 def read_root():
     return {"message": "TaskFlow API v1.0 работает!"}
+
+
+
+
 
 
 '''

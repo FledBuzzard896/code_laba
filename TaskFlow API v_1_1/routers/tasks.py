@@ -1,11 +1,6 @@
-import sys
-import os
-
-# Получаем путь к корню проекта (на уровень выше routers)
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from fastapi import APIRouter, HTTPException
 import models
+
 
 router = APIRouter(
     tags=["tasks"],
@@ -14,6 +9,7 @@ router = APIRouter(
         418: {"description": "Я чайник"}
     }
 )
+
 
 task_1 = models.ResponseTask(
     id = 1,
@@ -31,8 +27,9 @@ task_2 = models.ResponseTask(
 tasks_db: list[models.ResponseTask] = [task_1, task_2]  # база данных
 next_id = 3
 
-'''FastAPI'''
 
+
+'''FastAPI'''
 # get (получение одной задачи)
 @router.get("/tasks/{task_id}", response_model=models.ResponseTask)
 def read_task(task_id: int):
@@ -42,11 +39,13 @@ def read_task(task_id: int):
             return task
     raise HTTPException(status_code=404, detail="Задача не найдена")
 
+
 # get (получение всех задач)
 @router.get("/tasks/", response_model=list[models.ResponseTask])
 def read_all_tasks():
     """Получить все задачи."""
     return tasks_db
+
 
 # post (создание)
 @router.post("/tasks/", response_model=models.ResponseTask)
@@ -65,6 +64,7 @@ def create_task(task: models.CreateTask):
     tasks_db.append(new_task)
     next_id += 1
     return new_task
+
 
 # put (обновить)
 @router.put("/tasks/{task_id}", response_model=models.ResponseTask)
@@ -91,6 +91,7 @@ def update_task(task_id: int, updated_task: models.ResponseTask):
             tasks_db[i] = updated
             return task
     raise HTTPException(status_code=404, detail="Задача не найдена")
+
 
 # delete (удаление)
 @router.delete("/tasks/{task_id}")
